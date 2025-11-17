@@ -12,14 +12,12 @@
   <ItemGroup>
     <PackageReference Include="System.Linq.Async" Version="6.0.3" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
-    <PackageReference Include="TensorStack.Providers.DML" Version="0.1.39" />
-    <PackageReference Include="TensorStack.WPF" Version="0.1.39" />
-    <PackageReference Include="TensorStack.Upscaler" Version="0.1.39" />
-    <PackageReference Include="TensorStack.Extractors" Version="0.1.39" />
-    <PackageReference Include="TensorStack.TextGeneration" Version="0.1.39" />
-    <PackageReference Include="TensorStack.StableDiffusion" Version="0.1.39" />
-    <PackageReference Include="TensorStack.Video" Version="0.1.39" />
-    <PackageReference Include="TensorStack.Audio.Windows" Version="0.1.39" />
+    <PackageReference Include="TensorStack.Providers.DML" Version="0.1.78" />
+    <PackageReference Include="TensorStack.WPF" Version="0.1.78" />
+    <PackageReference Include="TensorStack.Upscaler" Version="0.1.78" />
+    <PackageReference Include="TensorStack.Extractors" Version="0.1.78" />
+    <PackageReference Include="TensorStack.TextGeneration" Version="0.1.78" />
+    <PackageReference Include="TensorStack.StableDiffusion" Version="0.1.78" />
   </ItemGroup>
 
 
