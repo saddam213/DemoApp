@@ -18,7 +18,6 @@ using TensorStack.StableDiffusion.Pipelines.StableDiffusion2;
 using TensorStack.StableDiffusion.Pipelines.StableDiffusion3;
 using TensorStack.StableDiffusion.Pipelines.StableDiffusionXL;
 using TensorStack.WPF;
-using Windows.Foundation;
 
 namespace DemoApp.Services
 {
@@ -157,7 +156,7 @@ namespace DemoApp.Services
                     }
                     else if (model.PipelineType == PipelineType.Nitro)
                     {
-                        var nitroPipeline = NitroPipeline.FromFolder(model.Path, model.ModelType, provider);
+                        var nitroPipeline = NitroPipeline.FromFolder(model.Path, 512, model.ModelType, provider);
                         _diffusionPipeline = nitroPipeline;
                         _defaultOptions = nitroPipeline.DefaultOptions;
                     }

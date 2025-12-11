@@ -23,6 +23,7 @@ namespace DemoApp.Controls
         private TextModel _selectedModel;
         private Device _currentDevice;
         private TextModel _currentModel;
+        private TextModelType? _modelType;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TextModelControl"/> class.
@@ -76,6 +77,12 @@ namespace DemoApp.Controls
         {
             get { return _modelCollectionView; }
             set { SetProperty(ref _modelCollectionView, value); }
+        }
+
+        public TextModelType? ModelType
+        {
+            get { return _modelType; }
+            set { SetProperty(ref _modelType, value); OnSettingsChanged(); }
         }
 
 
@@ -142,6 +149,9 @@ namespace DemoApp.Controls
                     return false;
 
                 if (_selectedDevice == null)
+                    return false;
+
+                if (_modelType != null && _modelType != viewModel.Type)
                     return false;
 
                 return viewModel.SupportedDevices?.Contains(_selectedDevice.Type) ?? false;
