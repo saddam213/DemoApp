@@ -30,6 +30,7 @@ namespace DemoApp
         public ObservableCollection<DetectModel> DetectModels { get; set; }
         public ObservableCollection<TextModel> TextModels { get; set; }
         public ObservableCollection<TranscribeModel> TranscribeModels { get; set; }
+        public ObservableCollection<NarrateModel> NarrateModels { get; set; }
 
 
         public void Initialize()
@@ -71,6 +72,10 @@ namespace DemoApp
             var transcribeDirectory = Path.Combine(DirectoryModel, "Transcribe");
             foreach (var transcribeModel in TranscribeModels)
                 transcribeModel.Initialize(transcribeDirectory);
+
+            var narrateDirectory = Path.Combine(DirectoryModel, "Narrate");
+            foreach (var narrateModel in NarrateModels)
+                narrateModel.Initialize(narrateDirectory);
 
             var diffusionDirectory = Path.Combine(DirectoryModel, "Diffusion");
             foreach (var diffusionModel in DiffusionModels)
@@ -129,10 +134,18 @@ namespace DemoApp
             model.IsDefault = true;
         }
 
-
         public void SetDefault(TranscribeModel model)
         {
             foreach (var existing in TextModels)
+            {
+                existing.IsDefault = false;
+            }
+            model.IsDefault = true;
+        }
+
+        public void SetDefault(NarrateModel model)
+        {
+            foreach (var existing in NarrateModels)
             {
                 existing.IsDefault = false;
             }

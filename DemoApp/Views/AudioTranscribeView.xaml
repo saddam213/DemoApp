@@ -55,7 +55,9 @@
                         <!--Audio Input-->
                         <StackPanel DockPanel.Dock="Top">
                             <TextBlock Text="Audio Input" Style="{StaticResource FieldTextBlockStyle}" />
-                            <CommonControls:AudioElement Source="{Binding AudioInput, Mode=TwoWay}" Configuration="{Binding Settings}" IsReplayEnabled="False" />
+                            <Border Style="{StaticResource AudioDropZoneStyle}">
+                                <CommonControls:AudioElement Source="{Binding AudioInput, Mode=TwoWay}" Configuration="{Binding Settings}" IsReplayEnabled="False" />
+                            </Border>
                         </StackPanel>
 
                         <!--Advanced-->

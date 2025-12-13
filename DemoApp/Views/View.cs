@@ -21,7 +21,7 @@ namespace DemoApp.Views
         VideoInterpolation = 302,
 
         AudioTranscribe = 400,
-      
+        AudioNarrate = 401,
     }
 
 
@@ -71,7 +71,8 @@ namespace DemoApp.Views
             { View.VideoInterpolation, ViewCategory.Video  },
 
             // Audio
-            { View.AudioTranscribe, ViewCategory.Audio  }
+            { View.AudioTranscribe, ViewCategory.Audio  },
+            { View.AudioNarrate, ViewCategory.Audio  }
         };
 
 

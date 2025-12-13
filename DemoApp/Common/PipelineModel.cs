@@ -12,6 +12,7 @@ namespace DemoApp.Common
         public UpscaleModel UpscaleModel { get; init; }
         public DetectModel DetectModel { get; init; }
         public TextModel TextModel { get; init; }
-        public TranscribeModel TranscribeModel { get; set; }
+        public TranscribeModel TranscribeModel { get; init; }
+        public NarrateModel NarrateModel { get; init; }
     }
 }

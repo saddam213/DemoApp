@@ -38,6 +38,7 @@ namespace DemoApp
             builder.Services.AddSingleton<ITextService, TextService>();
             builder.Services.AddSingleton<IInterpolationService, InterpolationService>();
             builder.Services.AddSingleton<ITranscribeService, TranscribeService>();
+            builder.Services.AddSingleton<INarrateService, NarrateService>();
 
             _appHost = builder.Build();
 

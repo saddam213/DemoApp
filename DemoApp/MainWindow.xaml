@@ -335,6 +335,24 @@
                                     </Style>
                                 </Button.Style>
                             </Button>
+
+
+                            <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static Views:View.AudioNarrate}" Height="60" Margin="0,0,0,1">
+                                <DockPanel>
+                                    <CommonControls:FontAwesome DockPanel.Dock="Top" Icon="f1c7" Size="20" Color="{StaticResource AccentColour2}" IconStyle="Regular" />
+                                    <TextBlock Text="Narrate" FontWeight="SemiBold" FontSize="13" Opacity=".9"/>
+                                </DockPanel>
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding View, ElementName=UI}" Value="{x:Static Views:View.AudioNarrate}">
+                                                <Setter Property="BorderBrush" Value="{StaticResource AccentColour1}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+
                         </UniformGrid>
                     </Grid>
 

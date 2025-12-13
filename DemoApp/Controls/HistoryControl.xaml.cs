@@ -180,6 +180,7 @@ namespace DemoApp.Controls
                         {
                             MediaType.Image => DragDropType.Image,
                             MediaType.Video => DragDropType.Video,
+                            MediaType.Audio => DragDropType.Audio,
                             _ => throw new NotSupportedException()
                         };
 
