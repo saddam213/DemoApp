@@ -339,6 +339,89 @@
             </Grid>
         </DataTemplate>
 
+
+
+        <!--NarrateItem-->
+        <DataTemplate  DataType="{x:Type Common:NarrateItem}">
+            <Grid x:Name="Root" Background="Transparent" >
+                <DockPanel Height="150" Width="110" >
+                    <Grid DockPanel.Dock="Top">
+
+                        <Grid Width="110" Height="110">
+                            <CommonControls:FontAwesome Icon="f001" IconStyle="Solid" Size="70" Color="{StaticResource DefaultForeground}" Opacity=".2" />
+                        </Grid>
+
+                        <Button  Width="30" Height="30" 
+                            Style="{StaticResource TransparentButton}"
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Bottom" 
+                            Visibility="{Binding IsMouseOver, ElementName=Root, Converter={StaticResource BooleanToHiddenConverter}}"
+                            Command="{Binding RemoveItemCommand, RelativeSource={RelativeSource AncestorType=Controls:HistoryControl}}"
+                            CommandParameter="{Binding}">
+                            <CommonControls:FontAwesome Icon="&#xe2b4;" IconStyle="Solid" Size="20" Color="{StaticResource DangerColour}"  />
+                        </Button>
+                    </Grid>
+                    <StackPanel>
+                        <TextBlock TextAlignment="Center">
+                            <Run Text="{Binding Duration}" />
+                        </TextBlock>
+                        <TextBlock Text="{Binding Source}" TextAlignment="Center" />
+                    </StackPanel>
+                </DockPanel>
+
+
+                <!-- Popup card -->
+                <Popup x:Name="CardPopup"
+                    Height="120"
+                    Width="242"
+                    VerticalOffset="16"
+                    HorizontalOffset="-5"
+                    Placement="Top"
+                    StaysOpen="True"
+                    PopupAnimation="Slide"
+                    AllowsTransparency="True" >
+                    <Border Background="#01000000" Margin="0,0,0,0">
+                        <Border Margin="0,0,0,18" Background="#80000000" BorderBrush="{StaticResource ContainerBorder}" BorderThickness="1,1,1,0"  CornerRadius="6,6,0,0">
+                            <StackPanel Margin="6,4,6,6">
+                                <TextBlock Text="{Binding Source}" />
+                                <TextBlock Text="{Binding Model, StringFormat={}Model: {0}}" />
+                                <TextBlock Text="{Binding Voice, StringFormat={}Voice: {0}}" />
+                                <TextBlock Text="{Binding Seed, StringFormat={}Seed: {0}}" />
+                                <TextBlock Text="{Binding Speed, StringFormat={}Speed: {0}}" />
+                                <TextBlock Text="{Binding Steps, StringFormat={}Steps: {0}}" />
+                                <TextBlock Text="{Binding Channels, StringFormat={}Channels: {0}}" />
+                                <TextBlock Text="{Binding SampleRate, StringFormat={}SampleRate: {0}}" />
+                                <TextBlock Text="{Binding Duration, StringFormat={}Duration: {0}}" />
+                                <TextBlock Text="{Binding MediaPath}" />
+                            </StackPanel>
+                        </Border>
+                    </Border>
+                </Popup>
+
+                <!-- Hover triggers -->
+                <Grid.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <BooleanAnimationUsingKeyFrames Storyboard.TargetName="CardPopup" Storyboard.TargetProperty="IsOpen">
+                                    <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
+                                </BooleanAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <BooleanAnimationUsingKeyFrames Storyboard.TargetName="CardPopup" Storyboard.TargetProperty="IsOpen">
+                                    <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="False"/>
+                                </BooleanAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Grid.Triggers>
+            </Grid>
+        </DataTemplate>
+
     </CommonControls:BaseControl.Resources>
 
     <Grid  DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:HistoryControl}}}">

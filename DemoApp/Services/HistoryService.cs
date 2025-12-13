@@ -1,11 +1,11 @@
-﻿using DemoApp;
-using DemoApp.Common;
+﻿using DemoApp.Common;
 using DemoApp.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using TensorStack.Audio;
 using TensorStack.Common.Common;
 using TensorStack.Image;
 using TensorStack.Video;
@@ -55,6 +55,8 @@ namespace DemoApp.Services
                     historyItem = await Json.LoadAsync<LayerImageItem>(historyFile.FullName);
                 if (historyFile.Name.StartsWith("Diffusion_"))
                     historyItem = await Json.LoadAsync<DiffusionItem>(historyFile.FullName);
+                if (historyFile.Name.StartsWith("Narrate_"))
+                    historyItem = await Json.LoadAsync<NarrateItem>(historyFile.FullName);
                 if (historyItem == null)
                     continue;
 
@@ -154,6 +156,23 @@ namespace DemoApp.Services
 
 
         /// <summary>
+        /// Add new Audio to the history timeline
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="audio">The audio.</param>
+        /// <param name="history">The history.</param>
+        /// <returns>A Task&lt;AudioInput&gt; representing the asynchronous operation.</returns>
+        public async Task<AudioInput> AddAsync<T>(AudioInput audio, T history) where T : HistoryItem
+        {
+            SetSavePath(history);
+            await audio.SaveAsync(history.MediaPath);
+            await Json.SaveAsync<T>(history, history.FilePath);
+            _historyCollection.Add(history);
+            return audio;
+        }
+
+
+        /// <summary>
         /// Gets the save path.
         /// </summary>
         /// <param name="history">The history.</param>
@@ -169,6 +188,8 @@ namespace DemoApp.Services
 
                 View.VideoUpscale => "Upscale",
                 View.VideoExtractor => "Extractor",
+
+                View.AudioNarrate => "Narrate",
                 _ => throw new NotImplementedException()
             };
 
@@ -182,6 +203,8 @@ namespace DemoApp.Services
 
                 View.VideoUpscale => _settings.DirectoryHistory,
                 View.VideoExtractor => _settings.DirectoryHistory,
+
+                View.AudioNarrate => _settings.DirectoryHistory,
                 _ => throw new NotImplementedException()
             });
 
@@ -189,6 +212,7 @@ namespace DemoApp.Services
             {
                 MediaType.Image => "png",
                 MediaType.Video => "mp4",
+                MediaType.Audio => "wav",
                 _ => throw new NotImplementedException()
             };
 
@@ -212,5 +236,6 @@ namespace DemoApp.Services
 
         Task<ImageInput> AddAsync<T>(ImageInput image, T history) where T : HistoryItem;
         Task<VideoInputStream> AddAsync<T>(VideoInputStream videoStream, T history) where T : HistoryItem;
+        Task<AudioInput> AddAsync<T>(AudioInput audio, T history) where T : HistoryItem;
     }
 }

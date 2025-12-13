@@ -98,6 +98,7 @@ namespace DemoApp.Views
             Progress.Indeterminate("Generating Results...");
             try
             {
+                // Generate Result
                 var result = await NarrateService.ExecuteAsync(new NarrateRequest
                 {
                     InputText = _inputText,
@@ -107,7 +108,23 @@ namespace DemoApp.Views
                     VoiceStyle = _selectedVoice
                 });
 
-                AudioResult = new AudioInput(result);
+                // Save History
+                var resultAudio = new AudioInput(result);
+                AudioResult = await HistoryService.AddAsync(resultAudio, new NarrateItem
+                {
+                    Source = View.AudioNarrate,
+                    MediaType = MediaType.Audio,
+                    Model = _currentPipeline.NarrateModel.Name,
+                    Voice = _selectedVoice,
+                    Seed = _seed,
+                    Speed = _speed,
+                    Steps = _steps,
+                    Channels = resultAudio.Channels,
+                    SampleRate = resultAudio.SampleRate,
+                    Duration = resultAudio.Duration,
+                    InputText = _inputText,
+                    Timestamp = DateTime.UtcNow
+                });
 
                 Debug.WriteLine($"[{GetType().Name}] [ExecuteAsync] - Complete: {Stopwatch.GetElapsedTime(timestamp)}");
             }
